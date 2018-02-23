@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>INDEX</title>
+    
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	
+	<!-- WEB SOCKET -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.3/sockjs.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+</head>
+
+<body>
+	
+	<h1>LISTENER</h1>
+
+    <div>
+    	<input type="text" id="room" placeholder="room" />
+    	<input type="button" id="connect" value="CONNECT" />
+    	<input type="button" id="disconnect" value="DISCONNECT" />
+    </div>
+    <br />
+    
+    <div>
+    	<textarea cols="34" rows="50" id="res_message"></textarea>
+    </div>
+    
+    
+    <script>
+    	var stompClient = null;
+    	
+	  	$(document).ready(function() {
+		    $("#connect").click(function(){
+		    	var room = $("#room").val();
+		    	
+		    	if (stompClient != null) {
+		            stompClient.disconnect();
+		        }
+		    	
+		        var socket = new SockJS('/socket');
+		        stompClient = Stomp.over(socket);
+		        stompClient.connect({}, function(frame) {
+		            stompClient.subscribe('/socket/listner/'+room, function(response){
+		            	$("#res_message").append(response.body+"\n");
+		            });
+		        });
+		    });
+		    $("#disconnect").click(function(){
+		    	if (stompClient != null) {
+		            stompClient.disconnect();
+		        }
+		    });
+		});
+    </script>
+
+</body>
+
+</html>

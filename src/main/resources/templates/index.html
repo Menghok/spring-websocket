@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>INDEX</title>
+    
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	
+	<!-- WEB SOCKET -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.3/sockjs.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+</head>
+
+<body>
+
+	<h1>SENDER</h1>
+
+    <div>
+    	<input type="text" id="room" placeholder="room" />
+    </div>
+    <br />
+    
+    <div>
+    	<input type="text" id="message" placeholder="message" />
+    	<input type="button" id="send" value="SEND" />
+    </div>
+    <br />
+    
+    <script>
+	  	$(document).ready(function() {
+		    $("#send").click(function(){
+		    	var room = $("#room").val();
+		    	var message = $("#message").val();
+		    	var url = "/send?room="+room+"&message=" + message; 
+		    	$.ajax({
+		  			url: url,
+		  			method: "GET"
+		  		});
+		    })
+		});
+    </script>
+
+</body>
+
+</html>

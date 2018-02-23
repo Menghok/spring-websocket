@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Each token will be replaced by their respective titles in the resulting page.-->
+		<title layout:title-pattern="$CONTENT_TITLE"></title>
+		<link th:replace="fragments/styles"/>
+		<div th:replace="fragments/scripts"></div>
+	</head>
+	<body id="wrapper">
+			<div th:replace="fragments/header"></div>
+			<div th:replace="fragments/leftside"></div>
+		
+			<div layout:fragment="content">
+			
+			</div>
+			
+			<div th:replace="fragments/footer"></div>
+			
+	</body>
+</html>
